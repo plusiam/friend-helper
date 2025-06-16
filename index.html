@@ -16,10 +16,12 @@
         /* A4 출력 최적화 */
         @media print {
             body {
-                font-size: 12pt;
-                line-height: 1.4;
+                font-size: 10pt;
+                line-height: 1.2;
                 color: black !important;
                 background: white !important;
+                margin: 0;
+                padding: 0;
             }
             
             .no-print {
@@ -28,10 +30,8 @@
             
             .print-area {
                 width: 210mm;
-                min-height: 297mm;
                 margin: 0;
-                padding: 10mm;
-                page-break-after: always;
+                padding: 8mm;
                 box-shadow: none !important;
                 border: none !important;
             }
@@ -39,18 +39,121 @@
             .step-box {
                 border: 1px solid #333 !important;
                 background: white !important;
-                margin-bottom: 8mm;
-                padding: 4mm;
+                margin-bottom: 4mm;
+                padding: 3mm;
+                border-radius: 4px;
+                page-break-inside: avoid;
+            }
+            
+            .print-only h1 {
+                font-size: 16pt !important;
+                margin-bottom: 6px !important;
+            }
+            
+            .print-only .flex {
+                font-size: 8pt !important;
+                margin-bottom: 8px !important;
+            }
+            
+            h3 {
+                font-size: 11pt !important;
+                margin-bottom: 4px !important;
+            }
+            
+            .step-number {
+                width: 24px !important;
+                height: 24px !important;
+                font-size: 10pt !important;
+                margin-right: 6px !important;
+            }
+            
+            .emoji-large {
+                font-size: 1.2rem !important;
+            }
+            
+            label {
+                font-size: 9pt !important;
+                margin-bottom: 3px !important;
+                font-weight: 600 !important;
             }
             
             input, textarea {
                 border-bottom: 1px solid #333 !important;
                 background: transparent !important;
                 color: black !important;
+                padding: 2px 4px !important;
+                font-size: 9pt !important;
+                line-height: 1.2 !important;
+                min-height: 14px !important;
+            }
+            
+            textarea {
+                min-height: 24px !important;
+                max-height: 36px !important;
             }
             
             .checkbox-item {
-                margin-bottom: 2mm;
+                margin-bottom: 1mm;
+                font-size: 8pt !important;
+                line-height: 1.1 !important;
+                padding: 1px 0 !important;
+            }
+            
+            .custom-checkbox {
+                width: 12px !important;
+                height: 12px !important;
+                margin-right: 4px !important;
+            }
+            
+            .positive-words-area {
+                padding: 3mm !important;
+                margin: 2mm 0 !important;
+            }
+            
+            .positive-words-area textarea {
+                min-height: 32px !important;
+                max-height: 48px !important;
+            }
+            
+            .positive-words-area p {
+                font-size: 7pt !important;
+                margin: 2px 0 !important;
+            }
+            
+            .space-y-6 > * + * {
+                margin-top: 3mm !important;
+            }
+            
+            .space-y-4 > * + * {
+                margin-top: 2mm !important;
+            }
+            
+            .mb-6 {
+                margin-bottom: 3mm !important;
+            }
+            
+            .mb-4 {
+                margin-bottom: 2mm !important;
+            }
+            
+            .mb-3 {
+                margin-bottom: 1.5mm !important;
+            }
+            
+            .p-4 {
+                padding: 2mm !important;
+            }
+            
+            .bg-yellow-50 {
+                background: #fffbeb !important;
+                padding: 2mm !important;
+                font-size: 9pt !important;
+                border-left: 2px solid #f59e0b !important;
+            }
+            
+            .bg-purple-50 {
+                background: #faf5ff !important;
+                padding: 1.5mm !important;
             }
         }
         
@@ -67,17 +170,50 @@
         .situation-card {
             transition: all 0.3s ease;
             cursor: pointer;
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .situation-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.15);
+            border-color: #a855f7;
         }
         
         .situation-card.selected {
-            background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             color: white;
-            transform: scale(1.02);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+            border-color: #6d28d9;
+        }
+        
+        .situation-card.selected h3 {
+            color: white;
+        }
+        
+        .situation-card.selected p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .situation-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .situation-card p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #6b7280;
+            flex-grow: 1;
         }
         
         .input-field {
@@ -89,13 +225,42 @@
         .input-field:focus {
             border-color: #8b5cf6;
             background: white;
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .checkbox-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
         }
         
         .positive-words-area {
             background: linear-gradient(145deg, #fef7ff, #f3e8ff);
             border: 2px dashed #8b5cf6;
             min-height: 100px;
+            position: relative;
+            animation: subtle-glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes subtle-glow {
+            0% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+            }
+        }
+        
+        .custom-checkbox:checked {
+            background: #8b5cf6;
+            transform: scale(1.1);
+            animation: checkbox-bounce 0.3s ease;
+        }
+        
+        @keyframes checkbox-bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1.1); }
         }
         
         .emoji-large {
@@ -144,36 +309,64 @@
 <body class="gradient-bg min-h-screen py-6">
     <div class="container mx-auto px-4 max-w-4xl">
         <!-- 헤더 -->
-        <div class="text-center mb-8 no-print">
-            <h1 class="text-4xl font-bold text-purple-700 mb-2">
-                친구 마음 도우미 워크시트 💝
-            </h1>
-            <p class="text-lg text-gray-600">
+        <div class="text-center mb-12 no-print">
+            <div class="relative">
+                <h1 class="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent mb-4">
+                    친구 마음 도우미 워크시트 💝
+                </h1>
+                <div class="absolute -top-2 -right-2 text-2xl animate-bounce">✨</div>
+                <div class="absolute -bottom-2 -left-2 text-2xl animate-pulse">🌟</div>
+            </div>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
                 친구의 마음을 이해하고 도와주는 방법을 배워보아요!
             </p>
+            <div class="mt-6 flex justify-center space-x-2">
+                <span class="inline-block w-3 h-3 bg-purple-400 rounded-full animate-bounce"></span>
+                <span class="inline-block w-3 h-3 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
+                <span class="inline-block w-3 h-3 bg-orange-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+            </div>
         </div>
 
         <!-- 상황 선택 -->
-        <div class="step-box rounded-2xl p-6 mb-6 no-print">
-            <div class="flex items-center justify-between mb-4">
+        <div class="step-box rounded-2xl p-8 mb-8 no-print">
+            <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
                     <span class="emoji-large mr-3">🎯</span>
                     <h2 class="text-2xl font-bold text-gray-800">상황을 선택해주세요</h2>
                 </div>
                 <button 
                     id="shuffleBtn" 
-                    class="px-4 py-2 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-md"
+                    class="px-6 py-3 bg-orange-500 text-white rounded-xl font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center gap-2"
                 >
-                    🔄 다른 예시
+                    🔄 <span>다른 예시</span>
                 </button>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="situationCards">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6" id="situationCards">
                 <!-- 상황 카드들이 여기에 동적으로 생성됩니다 -->
             </div>
-            <div class="text-center mt-4">
-                <p class="text-sm text-gray-500">
-                    💡 총 100가지 상황이 준비되어 있어요! "다른 예시" 버튼을 눌러보세요.
+            
+            <div class="text-center">
+                <p class="text-sm text-gray-500 flex items-center justify-center gap-2">
+                    <span>💡</span>
+                    <span>총 100가지 상황이 준비되어 있어요! "다른 예시" 버튼을 눌러보세요.</span>
                 </p>
+            </div>
+        </div>
+
+        <!-- 선택된 상황 설명 (하단에 표시) -->
+        <div id="situationDetailCard" class="step-box rounded-2xl p-6 mb-6 no-print" style="display: none;">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                        <span class="text-white text-xl">📖</span>
+                    </div>
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">상황</h3>
+                    <div id="situationDetailDescription" class="text-gray-700 leading-relaxed p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border-l-4 border-yellow-400">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -276,18 +469,24 @@
                     <span class="emoji-large ml-auto">✨</span>
                 </div>
 
-                <div class="positive-words-area rounded-xl p-6">
+                <div class="positive-words-area rounded-xl p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 text-6xl opacity-10">💖</div>
+                    <div class="absolute bottom-0 left-0 text-4xl opacity-10">🌟</div>
+                    
                     <label class="block text-lg font-semibold text-gray-700 mb-4">
                         🌟 친구에게 힘이 되는 말을 써주세요
                     </label>
                     <textarea 
                         id="positiveWords" 
-                        class="w-full p-4 rounded-lg text-lg border-2 border-purple-200 bg-white h-32 resize-none"
+                        class="w-full p-4 rounded-lg text-lg border-2 border-purple-200 bg-white h-32 resize-none focus:border-purple-400 focus:ring-4 focus:ring-purple-100 transition-all duration-300"
                         placeholder="예: 너는 정말 소중한 친구야. 이 어려움도 잘 이겨낼 수 있을 거야. 내가 항상 네 편이니까 걱정하지 마!"
                     ></textarea>
                     
-                    <div class="mt-4 p-4 bg-purple-50 rounded-lg">
-                        <p class="text-sm text-purple-700 font-semibold">💡 힌트</p>
+                    <div class="mt-4 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-100">
+                        <p class="text-sm text-purple-700 font-semibold flex items-center gap-2">
+                            <span>💡</span>
+                            <span>힌트</span>
+                        </p>
                         <p class="text-sm text-purple-600 mt-1">
                             "너는 할 수 있어", "나는 네가 자랑스러워", "함께 해결해보자" 같은 따뜻한 말을 써보세요!
                         </p>
@@ -296,32 +495,37 @@
             </div>
 
             <!-- 완성 확인 및 성찰 -->
-            <div id="reflection" class="step-box rounded-2xl p-6 mb-6" style="display: none;">
+            <div id="reflection" class="step-box rounded-2xl p-6 mb-6 relative overflow-hidden" style="display: none;">
+                <div class="absolute top-0 right-0 text-6xl opacity-10">🌈</div>
+                <div class="absolute bottom-0 left-0 text-4xl opacity-10">✨</div>
+                
                 <div class="flex items-center mb-6">
                     <span class="emoji-large mr-3">🌈</span>
                     <h3 class="text-xl font-bold text-gray-800">나의 상담 성찰</h3>
                 </div>
 
-                <div class="space-y-4">
+                <div class="space-y-6">
                     <div>
-                        <label class="block text-lg font-semibold text-gray-700 mb-3">
-                            😊 친구를 도우면서 어떤 기분이었나요?
+                        <label class="block text-lg font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span>😊</span>
+                            <span>친구를 도우면서 어떤 기분이었나요?</span>
                         </label>
                         <input 
                             type="text" 
                             id="myFeeling" 
-                            class="input-field w-full p-4 rounded-lg text-lg"
+                            class="input-field w-full p-4 rounded-lg text-lg focus:ring-4 focus:ring-purple-100"
                             placeholder="예: 뿌듯했어요, 친구가 기뻐해서 좋았어요..."
                         >
                     </div>
 
                     <div>
-                        <label class="block text-lg font-semibold text-gray-700 mb-3">
-                            📚 오늘 새롭게 배운 점이 있나요?
+                        <label class="block text-lg font-semibold text-gray-700 mb-3 flex items-center gap-2">
+                            <span>📚</span>
+                            <span>오늘 새롭게 배운 점이 있나요?</span>
                         </label>
                         <textarea 
                             id="learning" 
-                            class="input-field w-full p-4 rounded-lg text-lg h-20"
+                            class="input-field w-full p-4 rounded-lg text-lg h-24 focus:ring-4 focus:ring-purple-100"
                             placeholder="친구를 도우면서 배운 점을 써주세요..."
                         ></textarea>
                     </div>
@@ -330,36 +534,41 @@
         </div>
 
         <!-- 버튼 영역 -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center no-print mt-8">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center no-print mt-12">
             <button 
                 id="nextStepBtn" 
-                class="px-8 py-4 bg-purple-600 text-white rounded-xl font-semibold text-lg hover:bg-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                class="px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl font-semibold text-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 style="display: none;"
             >
-                다음 단계로 💜
+                <span>다음 단계로</span>
+                <span>💜</span>
             </button>
             
             <button 
                 id="printBtn" 
-                class="px-8 py-4 bg-green-600 text-white rounded-xl font-semibold text-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                class="px-8 py-4 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-semibold text-lg hover:from-green-700 hover:to-green-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 style="display: none;"
             >
-                📄 출력하기
+                <span>📄</span>
+                <span>출력하기</span>
             </button>
             
             <button 
                 id="downloadBtn" 
-                class="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                class="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold text-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                 style="display: none;"
             >
-                📸 이미지로 저장
+                <span>📸</span>
+                <span>이미지로 저장</span>
             </button>
             
             <button 
                 id="resetBtn" 
-                class="px-8 py-4 bg-gray-500 text-white rounded-xl font-semibold text-lg hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                class="px-8 py-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-xl font-semibold text-lg hover:from-gray-600 hover:to-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                style="display: none;"
             >
-                🔄 다시 시작
+                <span>🔄</span>
+                <span>다시 시작</span>
             </button>
         </div>
     </div>
@@ -518,10 +727,9 @@
         function renderSituationCards() {
             const container = document.getElementById('situationCards');
             container.innerHTML = currentSituations.map(situation => `
-                <div class="situation-card bg-white p-4 rounded-xl border-2 border-purple-200 hover:border-purple-400" 
-                     data-id="${situation.id}">
-                    <h3 class="font-bold text-lg text-gray-800 mb-2">${situation.title}</h3>
-                    <p class="text-sm text-gray-600 leading-relaxed">${situation.description.substring(0, 80)}...</p>
+                <div class="situation-card" data-id="${situation.id}">
+                    <h3>${situation.title}</h3>
+                    <p>${situation.description.substring(0, 85)}...</p>
                 </div>
             `).join('');
         }
@@ -530,9 +738,9 @@
         function renderHelpMethods(methods) {
             const container = document.getElementById('helpMethods');
             container.innerHTML = methods.map((method, index) => `
-                <div class="checkbox-item flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
+                <div class="checkbox-item flex items-center space-x-3 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100 hover:border-purple-200 transition-all duration-200">
                     <input type="checkbox" id="help_${index}" class="custom-checkbox">
-                    <label for="help_${index}" class="text-gray-700 cursor-pointer flex-1">${method}</label>
+                    <label for="help_${index}" class="text-gray-700 cursor-pointer flex-1 font-medium">${method}</label>
                 </div>
             `).join('');
         }
@@ -576,6 +784,7 @@
             currentStep = 0;
             
             // 모든 단계 숨기기
+            document.getElementById('situationDetailCard').style.display = 'none';
             document.getElementById('selectedSituation').style.display = 'none';
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'none';
@@ -586,6 +795,7 @@
             document.getElementById('nextStepBtn').style.display = 'none';
             document.getElementById('printBtn').style.display = 'none';
             document.getElementById('downloadBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'none';
             
             // 입력 필드 초기화
             document.querySelectorAll('input, textarea').forEach(field => {
@@ -599,6 +809,9 @@
             document.querySelectorAll('.situation-card').forEach(card => {
                 card.classList.remove('selected');
             });
+            
+            // 맨 위로 스크롤
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // 상황 선택
@@ -611,7 +824,11 @@
             });
             document.querySelector(`[data-id="${id}"]`).classList.add('selected');
 
-            // 선택된 상황 표시
+            // 상황 상세 설명 표시
+            document.getElementById('situationDetailDescription').textContent = selectedSituation.description;
+            document.getElementById('situationDetailCard').style.display = 'block';
+            
+            // 워크시트 영역의 상황 표시
             document.getElementById('situationDescription').textContent = selectedSituation.description;
             document.getElementById('selectedSituation').style.display = 'block';
             
@@ -621,6 +838,17 @@
             // 1단계 표시
             document.getElementById('step1').style.display = 'block';
             document.getElementById('nextStepBtn').style.display = 'block';
+            
+            // 다시 시작 버튼 표시
+            document.getElementById('resetBtn').style.display = 'inline-block';
+            
+            // 선택된 상황으로 부드럽게 스크롤
+            setTimeout(() => {
+                document.getElementById('situationDetailCard').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }, 300);
             
             currentStep = 1;
         }

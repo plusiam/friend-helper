@@ -304,6 +304,30 @@
             top: -2px;
             left: 3px;
         }
+        
+        /* 이름 입력 영역 스타일 */
+        .name-input-area {
+            background: linear-gradient(145deg, #fef7ff, #f3e8ff);
+            border: 2px solid #8b5cf6;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.1);
+        }
+        
+        .name-input {
+            border: 2px solid #e0e7ff;
+            background: white;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            text-align: center;
+        }
+        
+        .name-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen py-6">
@@ -324,6 +348,23 @@
                 <span class="inline-block w-3 h-3 bg-purple-400 rounded-full animate-bounce"></span>
                 <span class="inline-block w-3 h-3 bg-pink-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
                 <span class="inline-block w-3 h-3 bg-orange-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+            </div>
+        </div>
+
+        <!-- 이름 입력 영역 -->
+        <div class="name-input-area mb-8 no-print">
+            <div class="text-center">
+                <label class="block text-lg font-semibold text-gray-700 mb-3">
+                    <span class="text-2xl mr-2">👋</span>
+                    상담을 도와줄 친구의 이름을 알려주세요!
+                </label>
+                <input 
+                    type="text" 
+                    id="studentName" 
+                    class="name-input rounded-lg w-full max-w-md mx-auto"
+                    placeholder="예: 김민수"
+                >
+                <p class="text-sm text-gray-600 mt-2">이름을 입력하면 더 특별한 상담이 될 거예요!</p>
             </div>
         </div>
 
@@ -378,8 +419,8 @@
                     친구 마음 도우미 워크시트 💝
                 </h1>
                 <div class="flex justify-between text-sm text-gray-600 mb-4">
-                    <span>이름: ________________</span>
-                    <span>날짜: ________________</span>
+                    <span>상담자: <span id="printStudentName" class="font-bold"></span></span>
+                    <span>날짜: <span id="printDate"></span></span>
                     <span>학급: ________________</span>
                 </div>
             </div>
@@ -388,7 +429,9 @@
             <div id="selectedSituation" class="step-box rounded-2xl p-6 mb-6" style="display: none;">
                 <div class="flex items-center mb-4">
                     <span class="emoji-large mr-3">📖</span>
-                    <h3 class="text-xl font-bold text-gray-800">상황</h3>
+                    <h3 class="text-xl font-bold text-gray-800">
+                        <span id="situationStudentName"></span>가 상담하는 상황
+                    </h3>
                 </div>
                 <div id="situationDescription" class="text-lg text-gray-700 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
                 </div>
@@ -501,7 +544,9 @@
                 
                 <div class="flex items-center mb-6">
                     <span class="emoji-large mr-3">🌈</span>
-                    <h3 class="text-xl font-bold text-gray-800">나의 상담 성찰</h3>
+                    <h3 class="text-xl font-bold text-gray-800">
+                        <span id="reflectionStudentName"></span>의 상담 성찰
+                    </h3>
                 </div>
 
                 <div class="space-y-6">
@@ -528,6 +573,19 @@
                             class="input-field w-full p-4 rounded-lg text-lg h-24 focus:ring-4 focus:ring-purple-100"
                             placeholder="친구를 도우면서 배운 점을 써주세요..."
                         ></textarea>
+                    </div>
+                </div>
+
+                <!-- 상담 완료 표시 -->
+                <div class="mt-8 p-6 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl border-2 border-purple-300">
+                    <div class="text-center">
+                        <div class="text-4xl mb-3">🎉</div>
+                        <h4 class="text-xl font-bold text-purple-700 mb-2">
+                            <span id="completionStudentName"></span>의 멋진 상담이 완성되었어요!
+                        </h4>
+                        <p class="text-gray-700">
+                            <span id="completionStudentName2"></span>는 친구의 마음을 이해하고 도와줄 수 있는 훌륭한 상담자예요! 👏
+                        </p>
                     </div>
                 </div>
             </div>
@@ -714,6 +772,7 @@
         function init() {
             shuffleSituations();
             setupEventListeners();
+            updateStudentNameDisplay();
         }
 
         // 상황 셔플 및 6개 선택
@@ -745,8 +804,32 @@
             `).join('');
         }
 
+        // 학생 이름 표시 업데이트
+        function updateStudentNameDisplay() {
+            const studentName = document.getElementById('studentName').value.trim() || '친구';
+            
+            // 상황 제목에 이름 표시
+            document.getElementById('situationStudentName').textContent = studentName;
+            
+            // 성찰 제목에 이름 표시
+            document.getElementById('reflectionStudentName').textContent = studentName;
+            
+            // 완료 메시지에 이름 표시
+            document.getElementById('completionStudentName').textContent = studentName;
+            document.getElementById('completionStudentName2').textContent = studentName;
+            
+            // 출력용 이름 표시
+            document.getElementById('printStudentName').textContent = studentName;
+            
+            // 출력용 날짜 표시
+            document.getElementById('printDate').textContent = new Date().toLocaleDateString('ko-KR');
+        }
+
         // 이벤트 리스너 설정
         function setupEventListeners() {
+            // 이름 입력 이벤트
+            document.getElementById('studentName').addEventListener('input', updateStudentNameDisplay);
+            
             // 상황 선택
             document.getElementById('situationCards').addEventListener('click', (e) => {
                 const card = e.target.closest('.situation-card');
@@ -766,6 +849,7 @@
 
             // 출력 버튼
             document.getElementById('printBtn').addEventListener('click', () => {
+                updateStudentNameDisplay(); // 출력 전 이름 업데이트
                 document.querySelector('.print-only').style.display = 'block';
                 window.print();
                 document.querySelector('.print-only').style.display = 'none';
@@ -797,9 +881,11 @@
             document.getElementById('downloadBtn').style.display = 'none';
             document.getElementById('resetBtn').style.display = 'none';
             
-            // 입력 필드 초기화
-            document.querySelectorAll('input, textarea').forEach(field => {
-                field.value = '';
+            // 입력 필드 초기화 (이름 제외)
+            document.querySelectorAll('input:not(#studentName), textarea').forEach(field => {
+                if (field.id !== 'studentName') {
+                    field.value = '';
+                }
             });
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 checkbox.checked = false;
@@ -817,6 +903,9 @@
         // 상황 선택
         function selectSituation(id) {
             selectedSituation = allSituations.find(s => s.id === id);
+            
+            // 이름 업데이트
+            updateStudentNameDisplay();
             
             // 선택된 카드 표시
             document.querySelectorAll('.situation-card').forEach(card => {
@@ -886,6 +975,7 @@
                     return;
                 }
                 
+                updateStudentNameDisplay(); // 완료 시 이름 업데이트
                 document.getElementById('reflection').style.display = 'block';
                 document.getElementById('nextStepBtn').style.display = 'none';
                 document.getElementById('printBtn').style.display = 'inline-block';
@@ -899,6 +989,7 @@
             try {
                 const worksheetArea = document.getElementById('worksheetArea');
                 
+                updateStudentNameDisplay(); // 다운로드 전 이름 업데이트
                 document.querySelector('.print-only').style.display = 'block';
                 
                 const canvas = await html2canvas(worksheetArea, {
@@ -910,8 +1001,9 @@
                 
                 document.querySelector('.print-only').style.display = 'none';
                 
+                const studentName = document.getElementById('studentName').value.trim() || '친구';
                 const link = document.createElement('a');
-                link.download = `친구마음도우미_${new Date().toLocaleDateString('ko-KR')}.png`;
+                link.download = `친구마음도우미_${studentName}_${new Date().toLocaleDateString('ko-KR')}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
                 
